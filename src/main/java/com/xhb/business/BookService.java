@@ -12,11 +12,20 @@ import retrofit2.http.Query;
 @BaseUri("https://coursaction.talcloud.com/")
 public interface BookService {
 
-    static class Result extends ResultConverterFactory.ResultInfo<Result>
-    {
+    static class Result {
         int code;
         String msg;
         Object data;
+
+    }
+
+    static class ResultInfo extends ResultConverterFactory.ResultInfo<Result>
+    {
+        public ResultInfo() {
+            mStatusField = "code";
+            mMessageField = "msg";
+            mDataField = "data";
+        }
 
         @Override
         public Result newResult() {
@@ -55,17 +64,20 @@ public interface BookService {
         public String pageId;
         public String paperUrl;
         public List<String> areaInfo;
+        public String getPaperUrl() { return paperUrl; }
     }
     static class PaperTypesetInfo
     {
         public String paperId;
         public List<DataElement> datas;
+        public List<DataElement> getDatas() { return datas; }
     }
     static class PaperData
     {
         public PaperTypesetInfo paperTypesetInfo;
+        public PaperTypesetInfo getPaperTypesetInfo() { return paperTypesetInfo; }
     }
 
-    @GET("preparation/app/v2/teaching/paper/typeset/info")
+    @GET("preparation/app/v2/teaching/material/electronic")
     Observable<PaperData> getPaperInfo(@Query("bookId") String bookId, @Query("chapterId") String chapterId);
 }
