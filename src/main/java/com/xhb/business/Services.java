@@ -15,6 +15,6 @@ public class Services {
         interceptors.add(new TicketInterceptor());
         interceptors.add(new HostInterceptor());
         return HttpServices.get(BookService.class,  interceptors,
-                new BookService.ResultInfo());
+                new ResultInfo());
     }
 }
